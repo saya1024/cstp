@@ -30,7 +30,7 @@ public:
     constexpr cstring(char c, Ts... args) :
         cstring<sizeof...(Ts) + 1>(cstring<1>(c) + cstring<sizeof...(Ts)>(args...))
     {
-        static_assert(is_all_same<char, std::decay<Ts>::type...>::value, "all args should be const char");
+        static_assert(is_all_same<char, typename std::decay<Ts>::type...>::value, "all args should be char");
     }
 
     template<int M>
@@ -100,7 +100,7 @@ template<class... Ts>
 inline constexpr cstring<sizeof...(Ts) + 1>
 to_cstr(char c, Ts...  args)
 {
-    static_assert(is_all_same<char, std::decay<Ts>::type...>::value, "all args should be const char");
+    static_assert(is_all_same<char, typename std::decay<Ts>::type...>::value, "all args should be char");
     return cstring<1>(c) + cstring<sizeof...(Ts)>(args...);
 }
 
